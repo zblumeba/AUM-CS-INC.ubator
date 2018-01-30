@@ -1,0 +1,118 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+void operateFunc(float numArr[]);
+void secondLoop (float numArr[], float sum2, float C, float D, string &op1, string &op2, string &op3);
+void thirdLoop (float numArr[], float sum3, float intD, string &op1, string &op2, string &op3);
+
+int main(){
+
+   float array1[4] = {4.0, 6.0, 8.0, 10.0};
+
+   operateFunc(array1);
+
+}
+
+
+void operateFunc(float numArr[]){
+
+
+   
+   float A = numArr[0], B = numArr[1], C = numArr[2], D = numArr[3];
+
+   float sum = 0.00;
+   string op1, op2, op3;
+
+   //This section of the code is the outer most branch, it executes first, and runs only once. It combines the first two numbers
+   //in the array with an operator, then saves the operator type as a string for printing. It then moves a branch lower to the
+   //next loop. It saves the combination of the numbers as a "sum" variable, which probably needs a better name.
+
+   sum = A + B;
+   op1 = " + ";
+   secondLoop(numArr, sum, C, D, op1, op2, op3);
+
+   sum = A - B;
+   op1 = " - ";
+   secondLoop(numArr, sum, C, D, op1, op2, op3);
+
+   sum = A / B;
+   op1 = " / ";
+   secondLoop(numArr, sum, C, D, op1, op2, op3);
+
+   sum = A * B;
+   op1 = " * ";
+   secondLoop(numArr, sum, C, D, op1, op2, op3);
+
+}
+
+void secondLoop (float numArr[], float sum2, float intC, float intD, string &op1, string &op2, string &op3){
+
+      int j = 0;
+
+
+      // This section is the middle branch/loop, it runs 4 times. It is similar to the first branch, but it requires that
+      // each sum be saved to a unique variable. This is a way to use only one variable, but this is a temproary workaround.
+      // It sends the operator from the first branch, and this branch, into another function as arguements, along with the current sum.
+      float sum3 = 0,  sum4 =0, sum5 = 0, sum6 = 0;
+
+      do{
+            j++;
+
+            switch(j){
+      		case 1:
+          		sum3 = sum2 + intC;
+          		op2 = " + ";
+          		thirdLoop(numArr, sum3, intD, op1, op2, op3);
+          		break;
+        	case 2:
+          		sum4 = sum2 - intC;
+          		op2 = " - ";
+          		thirdLoop(numArr, sum4, intD, op1, op2, op3);
+          		break;
+        	case 3:
+         		sum5 = sum2 /  intC;
+         		op2 = " / ";
+         		thirdLoop(numArr, sum5, intD, op1, op2, op3);
+          		break;
+        	case 4:
+          		sum6 = (sum2 * intC);
+          		op2 = " * ";
+          		thirdLoop(numArr, sum6, intD, op1, op2, op3);
+          		break;
+            default:
+                break;
+            }
+
+      }while(j<4);
+
+}
+
+
+void thirdLoop (float numArr[], float sum7, float intD, string &op1, string &op2, string &op3){
+
+
+
+    //This is the last branch. It runs 16 times. It combines the current sum to the last number with one of 4 operators, then prints the 
+    //result in a user friendly way. It does this for all 4 operators, resulting in 64 lines printed.
+    float sum8 = 0, sum9 = 0, sum10 = 0, sum11 = 0;
+
+    sum8 = sum7 + intD;
+    op3 = " + ";
+    cout << "(("<< numArr[0] << op1 << numArr[1]  << ")" << op2 << numArr[2]  << ")" << op3 << numArr[3]  << " = " << sum8 << endl;
+
+    sum9 = (sum7 - intD);
+    op3 = " - ";
+    cout << "(("<< numArr[0] << op1 << numArr[1]  << ")" << op2 << numArr[2]  << ")" << op3 << numArr[3]  << " = " << sum9 << endl;
+
+    sum10 = sum7 / intD;
+    op3 = " / ";
+    cout << "(("<< numArr[0] << op1 << numArr[1]  << ")" << op2 << numArr[2]  << ")" << op3 << numArr[3]  << " = " << sum10 << endl;
+
+    sum11 = sum7 * intD;
+    op3 = " * ";
+    cout << "(("<< numArr[0] << op1 << numArr[1]  << ")" << op2 << numArr[2]  << ")" << op3 << numArr[3]  << " = " << sum11 << endl;
+
+}
